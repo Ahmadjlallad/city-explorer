@@ -1,0 +1,17 @@
+.header {
+  align-items: center;
+  width: "auto";
+  margin: 2rem;
+}
+.filses {
+  align-items: center;
+}
+.title {
+  font-size: 1rem;
+}
+.card--header {
+  font-size: 2rem;
+}
+body {
+  background-image: linear-gradient(to left, #f6d365 0%, #fda085 100%);
+}
