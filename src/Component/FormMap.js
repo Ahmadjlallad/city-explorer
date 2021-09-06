@@ -1,9 +1,10 @@
 import React from "react";
 import { Button, Form, Card } from "react-bootstrap";
 import axios from "axios";
-
+import key from "../key.env";
+console.log(key);
 class FormMap extends React.Component {
-  #key = `pk.9de4417af4d37a9c00598564d0ca391e`;
+  #key = `pk.fe3a26c7b39aacd608666617a027497e`;
   state = {
     place: "",
     locationData: {},
