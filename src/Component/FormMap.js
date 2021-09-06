@@ -1,13 +1,15 @@
 import React from "react";
 import { Button, Form, Card } from "react-bootstrap";
 import axios from "axios";
+import Weather from "./Weather";
 
 class FormMap extends React.Component {
-  #key = `pk.9de4417af4d37a9c00598564d0ca391e`;
+  #key = `pk.fe3a26c7b39aacd608666617a027497e`;
   state = {
     place: "",
     locationData: {},
     error: false,
+    myData: [],
   };
   findExplore = async (e) => {
     e.preventDefault();
@@ -18,7 +20,24 @@ class FormMap extends React.Component {
           this.state.place
         }&format=json`
       );
-      this.setState({ locationData: data[0], error: false });
+      const { data: myData } = await axios.get(
+        `https://lab07weatherapi.herokuapp.com/weather?lat=${data[0].lat}&lon=${
+          data[0].lon
+        }&city_name=${
+          data[0].display_name
+            .slice(0, data[0].display_name.search(" "))
+            .replace(",", "") === `باريس`
+            ? `Paris`
+            : data[0].display_name
+                .slice(0, data[0].display_name.search(" "))
+                .replace(",", "")
+        }`
+      );
+      this.setState({
+        locationData: data[0],
+        error: false,
+        myData,
+      });
     } catch (e) {
       this.setState({ error: true, locationData: {} });
     }
@@ -78,6 +97,7 @@ class FormMap extends React.Component {
         {this.state.error
           ? this.errorComponent()
           : this.state.locationData.display_name && this.renderMap()}
+        {this.state.error ? null : <Weather myData={this.state.myData} />}
       </>
     );
   }
