@@ -1,21 +1,14 @@
 import React from "react";
-import { Container, ListGroup } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import ErrorGenerator from "./ErrorGenerator";
+import WeatherDay from "./WeatherDay";
 class Weather extends React.Component {
   handleRequestClose = () => {
     console.log(this.props?.weather);
     console.log(this.props.errorState);
     return !this.props.errorState ? (
       this.props?.weather?.map((item) => {
-        return (
-          <Container md={4} style={{ width: "40rem", margin: "1rem 0" }}>
-            <ListGroup.Item variant="success"> Day: {item.date}</ListGroup.Item>
-            <ListGroup.Item variant="success">
-              {" "}
-              Forecast: {item.description}
-            </ListGroup.Item>
-          </Container>
-        );
+        return <WeatherDay item={item} />;
       })
     ) : (
       <ErrorGenerator errorMessage="There are No weather Data" />
